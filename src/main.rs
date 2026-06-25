@@ -1,3 +1,6 @@
 fn main() {
-    println!("Hello, world!");
+    if let Err(error) = ryver::cli::run() {
+        eprintln!("error: {error}");
+        std::process::exit(1);
+    }
 }
