@@ -2,11 +2,11 @@
 
 This document records the starting architectural direction. It is expected to change as the implementation reveals constraints.
 
-## Repository Layout
+## Implemented Repository Layout
 
-The repository metadata directory should probably be `.ryver/`.
+The repository metadata directory is `.ryver/`.
 
-Possible structure:
+The first implementation writes this structure:
 
 ```text
 .ryver/
@@ -14,12 +14,6 @@ Possible structure:
   patches/
   refs/
   indexes/
-  entities/
-  proposals/
-  issues/
-  reviews/
-  checks/
-  extensions/
   config.toml
 ```
 
@@ -29,6 +23,14 @@ The exact layout can change, but the separation matters:
 - refs and indexes can be mutable;
 - indexes should be rebuildable;
 - third-party metadata should use namespaces.
+
+Current storage behavior:
+
+- `objects/` stores content-addressed file blobs by SHA-256 hash;
+- `patches/` stores portable JSON patch records named by patch id;
+- `refs/HEAD` stores the current patch id, or is empty before the first recorded patch;
+- `indexes/` is created but not used yet;
+- `config.toml` records the initial format choices.
 
 ## Core Object Types
 
@@ -62,18 +64,27 @@ A patch may contain:
 - affected entities;
 - metadata.
 
+The current patch schema records:
+
+- `id`;
+- optional `parent`;
+- `author`;
+- Unix `timestamp`;
+- `message`;
+- file-level `operations`;
+- resulting file `tree`.
+
+This is intentionally narrow. It establishes a portable object and parent chain before adding dependency algebra, inverses, materialization, or semantic operations.
+
 ## Operation Model
 
 Start with text and filesystem operations:
 
-- insert text;
-- delete text;
-- replace text;
-- move file;
-- copy file;
-- delete file;
 - create file;
-- update executable bit or other metadata, if needed.
+- modify file;
+- delete file.
+
+The first implementation records whole-file creates, modifies, and deletes. Text hunks, moves, copies, executable-bit changes, and operation inverses are still future work.
 
 Later semantic operations:
 

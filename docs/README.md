@@ -5,6 +5,7 @@ This directory stores the project vision and early design notes.
 Start here:
 
 - `product-definition.md`: what Ryver is and what it is not;
+- `cli.md`: current experimental command-line behavior;
 - `values.md`: principles that should guide tradeoffs;
 - `roadmap.md`: staged implementation plan;
 - `architecture.md`: initial technical direction;
