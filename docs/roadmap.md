@@ -4,11 +4,11 @@ This roadmap is intentionally staged. Ryver should become useful by building a s
 
 ## Phase 0: Project Foundation
 
-- Create the Rust crate and basic CLI structure.
-- Define repository layout under a hidden project directory, likely `.ryver/`.
-- Document core object types and storage invariants.
-- Add basic tests from the beginning.
-- Decide on serialization formats for portable objects and local indexes.
+- Create the Rust crate and basic CLI structure. Initial implementation exists.
+- Define repository layout under `.ryver/`. Initial layout exists.
+- Document core object types and storage invariants. Initial notes exist.
+- Add basic tests from the beginning. Initial repository tests exist.
+- Decide on serialization formats for portable objects and local indexes. Initial patches use JSON; indexes are not implemented yet.
 
 ## Phase 1: Text-Based Patch VCS
 
@@ -16,11 +16,11 @@ Build the smallest useful VCS before adding AST awareness.
 
 Features:
 
-- `init`
-- `status`
-- `record` or `commit`
-- `log`
-- `show`
+- `init` exists.
+- `status` exists for added, modified, and deleted files.
+- `record` exists for whole-file patch records.
+- `log` exists for the parent chain.
+- `show` exists for patch metadata and file operations.
 - materialize working tree state
 - apply and unapply patches
 - detect simple conflicts
